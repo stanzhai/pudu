@@ -1,3 +1,3 @@
-#pubu
+# pudu
 
 pudu is a web crawler written in C. Now is under developing ...

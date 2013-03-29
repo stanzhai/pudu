@@ -1,9 +1,10 @@
 #include <sys/types.h>
 #include <stdio.h>
 #include <regex.h>
+#include "log.h"
 #include <ev.h>
 
-FILE* fpLog=NULL;
+extern FILE* fpLog;
 void usage();
 
 void shutdown()
@@ -30,7 +31,7 @@ int main(int argc, char* argv[])
 		}
 	}
 
-	if (fpLog != NULL) fprintf(fpLog, "test");
+	warnx("test info");
 	shutdown();
 	exit(0);
 }
