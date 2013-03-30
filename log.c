@@ -19,7 +19,6 @@ void err(int eval, const char *fmt, ...)
 		if (!fpLog) fpLog = stderr;
 		(void)vfprintf(fpLog, fmt, ap);
 		(void)fprintf(fpLog, ": ");
-		if 
 	}
 	va_end(ap);
 	(void)fprintf(fpLog, "%s\n", strerror(errno));

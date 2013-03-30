@@ -33,7 +33,7 @@ int main(int argc, char* argv[])
 
 	warnx("test info");
 	shutdown();
-	exit(0);
+	return 0;
 }
 
 void usage()
