@@ -1,5 +1,6 @@
 CC= gcc
-CFLAGS= -Ilibev
+CFLAGS= 
+LDFLAGS= -Wl,-Bstatic -lev -Wl,-Bdynamic
 PUDUOBJ= 
 HEADERS= 
 ifndef TARGET
@@ -13,7 +14,7 @@ obj/%.o: %.c $(HEADERS)
 
 all: $(PUDUOBJ)
 	-@mkdir bin
-	$(CC) $(LDFLAGS) $(PUDUOBJ) -o bin/$(TARGET)
+	$(CC) $(PUDUOBJ) $(LDFLAGS) -o bin/$(TARGET)
 
 install: all
 	@rm -f /usr/bin/$(TARGET)
