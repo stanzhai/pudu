@@ -6,6 +6,7 @@
 #include <netdb.h>
 #include <arpa/inet.h>
 #include <hiredis/hiredis.h>
+#include <iconv.h>
 
 #define HEAD_BUFFER_SIZE 1024
 
@@ -24,6 +25,8 @@ static void send_cb (EV_P_ ev_io *w, int revents)
   if (revents & EV_WRITE)
   {
     char header[HEAD_BUFFER_SIZE] = {0};
+    strcat(header, "GET ");
+    strcat(header, url);
     strcat(header, " HTTP/1.1\r\n");
     strcat(header, "Accept: */*\r\n");
     strcat(header, "User-Agent: pudu\r\n");
@@ -57,8 +60,15 @@ static void send_cb (EV_P_ ev_io *w, int revents)
       }
       return;
     }
-    printf("%s", str);
-
+    iconv_t cd;
+    cd = iconv_open("utf-8", "gb2312");
+    char result[2048] = {0};
+    size_t inlen, outlen;
+    inlen = strlen(str);
+    outlen = sizeof(result);
+    iconv(cd, &str, &inlen, &result, &outlen);
+    iconv_close(cd);
+    printf("%s", result);
   }
 }
 
@@ -124,7 +134,6 @@ int main (void)
     ptr++;
     port = atoi(ptr);
   }
-  printf("%s", host);
   struct hostent *pHost = gethostbyname(host);
   struct in_addr addr;
   memcpy(&addr.s_addr, pHost->h_addr, sizeof(addr.s_addr));

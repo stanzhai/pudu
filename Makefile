@@ -1,6 +1,6 @@
 CC= gcc
 CFLAGS= -g
-LDFLAGS= -lev -lhiredis
+LDFLAGS= -lev -lhiredis -liconv
 PUDUOBJ= 
 HEADERS= 
 ifndef TARGET
